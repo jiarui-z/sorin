@@ -21,25 +21,16 @@
 
 _prompt_sorin_vimode() {
   case ${KEYMAP} in
-    vicmd) print -n ' %F{2}❮%F{3}❮%F{1}❮' ;;
-    *) print -n ' %F{1}❯%F{3}❯%F{2}❯' ;;
+    vicmd) print -n ' %F{3}❮%F{5}❮' ;;
+    *) print -n ' %F{5}❯%F{3}❯' ;;
   esac
 }
-
-_prompt_sorin_keymap_select() {
-  zle reset-prompt
-  zle -R
-}
-if autoload -Uz is-at-least && is-at-least 5.3; then
-  autoload -Uz add-zle-hook-widget && \
-      add-zle-hook-widget -Uz keymap-select _prompt_sorin_keymap_select
-else
-  zle -N zle-keymap-select _prompt_sorin_keymap_select
-fi
 
 typeset -g VIRTUAL_ENV_DISABLE_PROMPT=1
 
 setopt nopromptbang prompt{cr,percent,sp,subst}
+
+zstyle ':zim:prompt-pwd' git-root yes
 
 zstyle ':zim:prompt-pwd:fish-style' dir-length 1
 
